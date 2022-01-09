@@ -25,7 +25,7 @@ app.get('/guests', function (req, res) {
             console.log(err);
         }
         else{
-           res.send(queryRes);
+           res.send(queryRes.rows);
         }
     });
 });
