@@ -31,10 +31,13 @@ app.get('/guests', function (req, res) {
 });
 
 app.post('/addGuests', function (req, res) {
-    connection.query(`INSERT INTO guests(names,number) VALUES($1,$2)`, [ "Test", 2], (err, res) => {
+    connection.query(`INSERT INTO guests(names,number) VALUES($1,$2)`, [ "Test", 2], (err, queryRes) => {
         if (err) {
-            console.log("Error - Failed to insert data into Users");
+            console.log("Error - Failed to insert data into guests");
             console.log(err);
+        }
+        else{
+            res.send("Success");
         }
     });
 });
