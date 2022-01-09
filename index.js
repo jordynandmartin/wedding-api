@@ -31,7 +31,17 @@ app.get('/guests', function (req, res) {
 });
 
 app.post('/addGuests', function (req, res) {
-    connection.query(`INSERT INTO guests(names,number) VALUES($1,$2)`, [ "Test", 2], (err, queryRes) => {
+    if(req.body){
+        if(!req.body.guestNames){
+            res.status(500)
+            res.send("Guest names not provided");
+        }
+        if(!req.body.guestNumber){
+            res.status(500)
+            res.send("Guest number not provided");
+        }
+    }
+    connection.query(`INSERT INTO guests(names,number) VALUES($1,$2)`, [ res.body.guestNames, res.body.guestNumber], (err, queryRes) => {
         if (err) {
             console.log("Error - Failed to insert data into guests");
             console.log(err);
