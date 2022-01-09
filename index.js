@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
+const {Pool} = require('pg');
 var cors = require('cors');
+
+const connection = new Pool({
+    connectionString: 'postgres://zkhvazqhatabmv:fe4c0862f488ea99564dae2fb51275fb5e104959c87260502f4498c9e2e293d0@ec2-107-20-24-247.compute-1.amazonaws.com:5432/d96e0d5g4vrguk',
+    ssl: {
+    rejectUnauthorized: false
+    }
+   });
 
 app.use(
     cors({
@@ -10,10 +18,25 @@ app.use(
 );
 app.options('*', cors());
 
-app.get('/guests', (req, res) => res.send('Ashley Laird, Bruce Laird'));
+app.get('/guests', function (req, res) {
+    connection.query(`SELECT * FROM guests;`, (err, queryRes) => {
+        if (err) {
+            console.log("Error - Failed to select all from guests");
+            console.log(err);
+        }
+        else{
+           res.send(queryRes);
+        }
+    });
+});
 
 app.post('/addGuests', function (req, res) {
-    
+    connection.query(`INSERT INTO guests(names,number) VALUES($1,$2)`, [ "Test", 2], (err, res) => {
+        if (err) {
+            console.log("Error - Failed to insert data into Users");
+            console.log(err);
+        }
+    });
 });
 
 app.listen(process.env.PORT || 3000, function() {
