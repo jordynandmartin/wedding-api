@@ -26,7 +26,7 @@ app.get('/guests', function (req, res) {
             console.log(err);
         }
         else{
-           res.send(queryRes.rows);
+           res.send(queryRes.rows.map(party => {"guestNames" = party.names, "guestNumber" = party.number}));
         }
     });
 });
