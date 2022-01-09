@@ -14,7 +14,8 @@ app.use(
     cors({
         credentials: true,
         origin: true
-    })
+    }),
+    express.json()
 );
 app.options('*', cors());
 
