@@ -26,7 +26,10 @@ app.get('/guests', function (req, res) {
             console.log(err);
         }
         else{
-           res.send(queryRes.rows.map(party => {"guestNames" = party.names, "guestNumber" = party.number}));
+           res.send(queryRes.rows.map(function(party){
+               var convertedParty = {"guestNames" : party.names, "guestNumber" : party.number};
+               return convertedParty;
+           }));
         }
     });
 });
