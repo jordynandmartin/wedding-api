@@ -4,7 +4,7 @@ const {Pool} = require('pg');
 var cors = require('cors');
 
 const connection = new Pool({
-    connectionString: 'postgres://zkhvazqhatabmv:fe4c0862f488ea99564dae2fb51275fb5e104959c87260502f4498c9e2e293d0@ec2-107-20-24-247.compute-1.amazonaws.com:5432/d96e0d5g4vrguk',
+    connectionString: process.env.DATABASE_URL,
     ssl: {
     rejectUnauthorized: false
     }
