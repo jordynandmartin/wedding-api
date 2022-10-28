@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'https://rebeccaandfasih.github.io');
     next();
 });
-app.use(
+/*app.use(
     cors({
         credentials: true,
         origin: 'https://rebeccaandfasih.github.io'
@@ -21,7 +21,7 @@ app.use(
     express.json()
 );
 app.options('*', cors());
-
+*/
 app.get('/guests/:hostId', function (req, res) {
     connection.query(`SELECT * FROM guests WHERE host_id = ` + req.hostId + `;`, (err, queryRes) => {
         if (err) {
