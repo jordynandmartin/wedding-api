@@ -9,12 +9,12 @@ const connection = new Pool({
     rejectUnauthorized: false
     }
    });
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', 'https://rebeccaandfasih.github.io');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-});
-/*app.use(
+});*/
+app.use(
     cors({
         credentials: true,
         origin: 'https://rebeccaandfasih.github.io'
@@ -22,11 +22,11 @@ app.use(function (req, res, next) {
     express.json()
 );
 app.options('*', cors());
-*/
+
 app.get('/guests/:hostId', function (req, res) {
-    connection.query(`SELECT * FROM guests WHERE host_id = ` + req.hostId + `;`, (err, queryRes) => {
+    connection.query(`SELECT * FROM guests WHERE host_id = ` + req.params.hostId + `;`, (err, queryRes) => {
         if (err) {
-            console.log("Error - Failed to select all from guests for hostId: " + req.hostId);
+            console.log("Error - Failed to select all from guests for hostId: " + req.params.hostId);
             console.log(err);
 
             res.status(500);
