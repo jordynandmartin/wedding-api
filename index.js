@@ -20,9 +20,9 @@ app.use(
 app.options('*', cors());
 
 app.get('/guests/:hostId', function (req, res) {
-    connection.query(`SELECT * FROM guests WHERE host_id = ` + hostId + `;`, (err, queryRes) => {
+    connection.query(`SELECT * FROM guests WHERE host_id = ` + req.hostId + `;`, (err, queryRes) => {
         if (err) {
-            console.log("Error - Failed to select all from guests for hostId: " + hostId);
+            console.log("Error - Failed to select all from guests for hostId: " + req.hostId);
             console.log(err);
         }
         else{
