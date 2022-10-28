@@ -28,6 +28,9 @@ app.get('/guests/:hostId', function (req, res) {
         if (err) {
             console.log("Error - Failed to select all from guests for hostId: " + req.hostId);
             console.log(err);
+
+            res.status(500);
+            res.send("Failed with error: " + err);
         }
         else{
            res.send(queryRes.rows.map(function(party){
