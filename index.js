@@ -12,7 +12,7 @@ const connection = new Pool({
 app.use(
     cors({
         credentials: true,
-        origin: 'https://rebeccaandfasih.github.io/'
+        origin: 'https://rebeccaandfasih.github.io'
     }),
     express.json()
 );
