@@ -10,7 +10,7 @@ const connection = new Pool({
     }
    });
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://rebeccaandfasih.github.io/rebeccaandfasih/');
+    res.setHeader('Access-Control-Allow-Origin', 'https://rebeccaandfasih.github.io/');
 });
 app.use(
     cors({
