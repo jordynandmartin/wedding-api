@@ -9,13 +9,10 @@ const connection = new Pool({
     rejectUnauthorized: false
     }
    });
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://rebeccaandfasih.github.io/');
-});
 app.use(
     cors({
         credentials: true,
-        origin: true
+        origin: 'https://rebeccaandfasih.github.io/'
     }),
     express.json()
 );
