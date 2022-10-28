@@ -19,10 +19,10 @@ app.use(
 );
 app.options('*', cors());
 
-app.get('/guests', function (req, res) {
-    connection.query(`SELECT * FROM guests;`, (err, queryRes) => {
+app.get('/guests/:hostId', function (req, res) {
+    connection.query(`SELECT * FROM guests WHERE host_id = ` + hostId + `;`, (err, queryRes) => {
         if (err) {
-            console.log("Error - Failed to select all from guests");
+            console.log("Error - Failed to select all from guests for hostId: " + hostId);
             console.log(err);
         }
         else{
@@ -36,18 +36,23 @@ app.get('/guests', function (req, res) {
 
 app.post('/addGuests', function (req, res) {
     if(req.body){
-        if(!req.body.guestNames){
+        if(!req.body.hostId){
+            res.status(500);
+            res.send("Host ID not provided");
+        }
+        else if(!req.body.guestNames){
             res.status(500);
             res.send("Guest names not provided");
         }
-        if(!req.body.guestNumber){
+        else if(!req.body.guestNumber){
             res.status(500);
             res.send("Guest number not provided");
         }
-        if(req.body.guestNames && req.body.guestNumber){
-            connection.query(`INSERT INTO guests(names,number) VALUES($1,$2)`, [ req.body.guestNames, req.body.guestNumber], (err, queryRes) => {
+        else {
+            connection.query(`INSERT INTO guests(names,number,host_id) VALUES($1,$2,$3)`, 
+            [ req.body.guestNames, req.body.guestNumber, req.body.hostId], (err, queryRes) => {
                 if (err) {
-                    console.log("Error - Failed to insert data into guests");
+                    console.log("Error - Failed to insert data into guests for hostId: " + req.body.hostId);
                     console.log(err);
                 }
                 else{
